@@ -1,0 +1,11 @@
+# PDF parsing libraries (at least one is required)
+PyMuPDF>=1.19.0
+pdfminer.six>=20201018
+PyPDF2>=2.0.0
+
+# Web interface
+flask>=2.0.0
+werkzeug>=2.0.0
+
+# Data processing
+pyyaml>=6.0
