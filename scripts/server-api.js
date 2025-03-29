@@ -100,7 +100,12 @@ async function handleBrowseRequest(data) {
     
     // Validate the path to prevent directory traversal
     if (!isValidPath(path)) {
-      return { success: false, error: 'Invalid path' };
+      return { success: false, error: 'Invalid path. Please select a PDF file from the data directory.' };
+    }
+    
+    // Check if path points to a PDF file
+    if (!path.toLowerCase().endsWith('.pdf')) {
+      return { success: false, error: 'Selected file is not a PDF. Please choose a PDF file.' };
     }
     
     console.log(`PDF Extractor | Browsing directory: ${path}`);
@@ -139,7 +144,12 @@ async function handleFetchRequest(data) {
     
     // Validate the path to prevent directory traversal
     if (!isValidPath(path)) {
-      return { success: false, error: 'Invalid path' };
+      return { success: false, error: 'Invalid path. Please select a PDF file from the data directory.' };
+    }
+    
+    // Check if path points to a PDF file
+    if (!path.toLowerCase().endsWith('.pdf')) {
+      return { success: false, error: 'Selected file is not a PDF. Please choose a PDF file.' };
     }
     
     console.log(`PDF Extractor | Fetching file: ${path}`);
@@ -182,6 +192,12 @@ function isValidPath(path) {
   // In Foundry v12, paths might not have a leading slash
   if (!path.startsWith('data') && !path.startsWith('/data')) {
     console.warn(`PDF Extractor | Invalid path detected (not in data directory): ${path}`);
+    return false;
+  }
+  
+  // Additional check for empty path
+  if (!path || path.trim() === '') {
+    console.warn('PDF Extractor | Empty path provided');
     return false;
   }
   
