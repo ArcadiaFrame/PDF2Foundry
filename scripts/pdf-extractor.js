@@ -41,7 +41,7 @@ Hooks.once('init', async function() {
   } catch (error) {
     console.error('PDF Extractor | Failed to load PDF.js library:', error);
   }
-});}
+});
 
 // Add the PDF Extractor button to the sidebar
 Hooks.once('ready', async function() {

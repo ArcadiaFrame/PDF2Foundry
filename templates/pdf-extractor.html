@@ -13,12 +13,13 @@
     </div>
   </div>
   
-  <div class="form-group file-upload" id="upload-section">
-    <label for="pdf-upload">
-      <i class="fas fa-file-pdf"></i> Drop PDF file here or click to browse
+  <div class="form-group file-upload" id="upload-section" role="region" aria-labelledby="upload-label">
+    <label for="pdf-upload" id="upload-label" class="file-upload-label">
+      <i class="fas fa-file-pdf" aria-hidden="true"></i> Drop PDF file here or click to browse
     </label>
-    <input type="file" id="pdf-upload" class="pdf-upload" name="file" accept=".pdf">
-    <div class="file-name"></div>
+    <input type="file" id="pdf-upload" class="pdf-upload" name="file" accept=".pdf" required aria-required="true" aria-describedby="file-error">
+    <div class="file-name" aria-live="polite"></div>
+    <div id="file-error" class="error-message hidden" role="alert">Please select a valid PDF file.</div>
   </div>
   
   <div class="form-group server-browser hidden" id="server-section">
@@ -30,7 +31,7 @@
       </button>
     </div>
     <div class="server-files-list">
-      <select id="server-files" name="server_file" size="5">
+      <select id="server-files" name="server_file" size="5" aria-label="Available PDF files" role="listbox">
         <option value="" disabled selected>Select a PDF file...</option>
       </select>
     </div>
@@ -40,43 +41,43 @@
     <label>Content to Extract:</label>
     <div class="checkbox-group">
       <div class="checkbox-item">
-        <input type="checkbox" id="monsters" name="content_types[]" value="monsters" {{#if extractionOptions.monsters}}checked{{/if}}>
+        <input type="checkbox" id="monsters" name="content_types[]" value="monsters" data-checked="extractionOptions.monsters">
         <label for="monsters">Monsters/NPCs</label>
       </div>
       <div class="checkbox-item">
-        <input type="checkbox" id="spells" name="content_types[]" value="spells" {{#if extractionOptions.spells}}checked{{/if}}>
+        <input type="checkbox" id="spells" name="content_types[]" value="spells" data-checked="extractionOptions.spells">
         <label for="spells">Spells</label>
       </div>
       <div class="checkbox-item">
-        <input type="checkbox" id="items" name="content_types[]" value="items" {{#if extractionOptions.items}}checked{{/if}}>
+        <input type="checkbox" id="items" name="content_types[]" value="items" data-checked="extractionOptions.items">
         <label for="items">Items</label>
       </div>
       <div class="checkbox-item">
-        <input type="checkbox" id="backgrounds" name="content_types[]" value="backgrounds" {{#if extractionOptions.backgrounds}}checked{{/if}}>
+        <input type="checkbox" id="backgrounds" name="content_types[]" value="backgrounds" data-checked="extractionOptions.backgrounds">
         <label for="backgrounds">Backgrounds</label>
       </div>
       <div class="checkbox-item">
-        <input type="checkbox" id="adventures" name="content_types[]" value="adventures" {{#if extractionOptions.adventures}}checked{{/if}}>
+        <input type="checkbox" id="adventures" name="content_types[]" value="adventures" data-checked="extractionOptions.adventures">
         <label for="adventures">Adventures</label>
       </div>
       <div class="checkbox-item">
-        <input type="checkbox" id="glossary" name="content_types[]" value="glossary" {{#if extractionOptions.glossary}}checked{{/if}}>
+        <input type="checkbox" id="glossary" name="content_types[]" value="glossary" data-checked="extractionOptions.glossary">
         <label for="glossary">Glossary/Index</label>
       </div>
       <div class="checkbox-item">
-        <input type="checkbox" id="races" name="content_types[]" value="races" {{#if extractionOptions.races}}checked{{/if}}>
+        <input type="checkbox" id="races" name="content_types[]" value="races" data-checked="extractionOptions.races">
         <label for="races">Species/Races</label>
       </div>
       <div class="checkbox-item">
-        <input type="checkbox" id="traits" name="content_types[]" value="traits" {{#if extractionOptions.traits}}checked{{/if}}>
+        <input type="checkbox" id="traits" name="content_types[]" value="traits" data-checked="extractionOptions.traits">
         <label for="traits">Traits</label>
       </div>
       <div class="checkbox-item">
-        <input type="checkbox" id="feats" name="content_types[]" value="feats" {{#if extractionOptions.feats}}checked{{/if}}>
+        <input type="checkbox" id="feats" name="content_types[]" value="feats" data-checked="extractionOptions.feats">
         <label for="feats">Feats</label>
       </div>
       <div class="checkbox-item">
-        <input type="checkbox" id="rolltables" name="content_types[]" value="rolltables" {{#if extractionOptions.rolltables}}checked{{/if}}>
+        <input type="checkbox" id="rolltables" name="content_types[]" value="rolltables" data-checked="extractionOptions.rolltables">
         <label for="rolltables">Roll Tables</label>
       </div>
     </div>
@@ -98,5 +99,8 @@
   
   <div class="message success-message hidden">
     <i class="fas fa-check-circle"></i> PDF processed successfully! The extracted content has been added to your compendiums.
+  </div>
+  <div class="message error-message hidden">
+    <i class="fas fa-exclamation-circle"></i> <span class="error-text"></span>
   </div>
 </form>
