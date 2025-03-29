@@ -42,13 +42,16 @@ Hooks.once('init', async function() {
     }
   });
   
+  // Define the PDFExtractorApp class first (forward declaration)
+  let PDFExtractorApp;
+  
   // Register a custom settings menu
   game.settings.registerMenu('pdf-extractor', 'pdfExtractorMenu', {
     name: 'PDF Extractor Settings',
     label: 'Open PDF Extractor',
     hint: 'Configure and use the PDF Extractor for importing content',
     icon: 'fas fa-file-pdf',
-    type: PDFExtractorApp,
+    type: function() { return PDFExtractorApp; },
     restricted: true
   });
   
@@ -93,10 +96,21 @@ Hooks.once('ready', async function() {
                       </div>`);
     
     // Add the button to the sidebar
-    // Add to settings tabs in right sidebar
-    const settingsTabs = $('#settings nav#settings-tabs');
-    settingsTabs.append(button);
-    button.addClass('settings-tab flexrow');
+    // In Foundry v12, the settings tabs are in #client-settings .tabs
+    const settingsTabs = $('#client-settings .tabs');
+    if (settingsTabs.length) {
+      settingsTabs.append(button);
+      button.addClass('item');
+    } else {
+      // Fallback to the old selector if the new one doesn't exist
+      const oldSettingsTabs = $('#settings nav#settings-tabs');
+      if (oldSettingsTabs.length) {
+        oldSettingsTabs.append(button);
+        button.addClass('settings-tab flexrow');
+      } else {
+        console.error('PDF Extractor | Could not find settings tabs element');
+      }
+    }
     
     // Add click handler to open the PDF Extractor interface
     button.click(ev => {
@@ -117,6 +131,23 @@ Hooks.once('ready', async function() {
 });
 
 // Register the module with Foundry's UI
+Hooks.on('renderSettingsConfig', (app, html, data) => {
+  if (game.user.isGM) {
+    // Make sure the module settings are properly displayed
+    const extractionOptions = game.settings.get('pdf-extractor', 'extractionOptions');
+    for (const [key, enabled] of Object.entries(extractionOptions)) {
+      html.find(`#pdf-extractor-${key}`).prop('checked', enabled);
+    }
+    
+    // Ensure the module settings are visible
+    const moduleSettings = html.find('div[data-module-id="pdf-extractor"]');
+    if (moduleSettings.length) {
+      moduleSettings.show();
+    }
+  }
+});
+
+// Also listen for the new settings rendering event in Foundry v12
 Hooks.on('renderSettings', (app, html, data) => {
   if (game.user.isGM) {
     // Make sure the module settings are properly displayed
@@ -130,7 +161,7 @@ Hooks.on('renderSettings', (app, html, data) => {
 /**
  * The main application for the PDF Extractor
  */
-class PDFExtractorApp extends Application {
+PDFExtractorApp = class PDFExtractorApp extends Application {
   constructor(options = {}) {
     super(options);
     this.file = null;
