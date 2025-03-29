@@ -2,6 +2,13 @@
 
 .pdf-extractor {
   min-height: 300px;
+  z-index: 1000; /* Ensure the window appears on top */
+}
+
+/* Fix for window positioning */
+.app.window-app.pdf-extractor {
+  position: fixed !important;
+  z-index: 1000;
 }
 
 .pdf-extractor-button {

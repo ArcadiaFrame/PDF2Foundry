@@ -24,6 +24,33 @@ function registerAPIRoutes() {
   // Register the API endpoints
   const socket = game.socket;
   socket.on('module.pdf-extractor', handleSocketRequest);
+  
+  // Register Express API routes for direct HTTP access
+  const router = game.server.router;
+  if (router) {
+    router.get('/modules/pdf-extractor/api/browse', (req, res) => {
+      const path = req.query.path;
+      handleBrowseRequest({ path }).then(result => {
+        res.json(result);
+      }).catch(err => {
+        res.status(500).json({ success: false, error: err.message });
+      });
+    });
+    
+    router.get('/modules/pdf-extractor/api/fetch', (req, res) => {
+      const path = req.query.path;
+      handleFetchRequest({ path }).then(result => {
+        if (result.success) {
+          res.type('application/pdf');
+          res.send(result.file);
+        } else {
+          res.status(500).json(result);
+        }
+      }).catch(err => {
+        res.status(500).json({ success: false, error: err.message });
+      });
+    });
+  }
 }
 
 /**

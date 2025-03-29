@@ -72,7 +72,7 @@ Hooks.once('init', async function() {
     type: String,
     default: 'data/packs',
     filePicker: 'folder'
-  });}]}}],"name":"finish
+  });
   
   // Load PDF.js library
   try {
@@ -99,7 +99,14 @@ Hooks.once('ready', async function() {
     // Add click handler to open the PDF Extractor interface
     button.click(ev => {
       ev.preventDefault();
-      new PDFExtractorApp().render(true);
+      // Close any existing instances first
+      const existingApp = Object.values(ui.windows).find(w => w instanceof PDFExtractorApp);
+      if (existingApp) {
+        existingApp.bringToTop();
+      } else {
+        const app = new PDFExtractorApp();
+        app.render(true);
+      }
     });
     
     // Log that the module is ready
@@ -138,7 +145,11 @@ class PDFExtractorApp extends Application {
       height: 'auto',
       classes: ['dnd5e', 'pdf-extractor'],
       resizable: true,
-      closeOnSubmit: false
+      closeOnSubmit: false,
+      popOut: true,
+      minimizable: true,
+      top: 100,
+      left: null // Center horizontally
     });
   }
   
@@ -206,6 +217,14 @@ class PDFExtractorApp extends Application {
     if (this.file) {
       const filename = this.file.name;
       this.html.find('.file-name').text(filename);
+      this.html.find('#file-error').addClass('hidden');
+      
+      // Validate file type
+      if (!this.file.type.includes('pdf')) {
+        this.html.find('#file-error').removeClass('hidden').text('Please select a valid PDF file.');
+        this.file = null;
+        this.html.find('.file-name').text('');
+      }
     }
   }
   
@@ -837,10 +856,11 @@ class PDFExtractorApp extends Application {
     
     // Create the compendium pack
     try {
-      const pack = await CompendiumCollection.create({
+      // Updated for Foundry VTT v12+
+      const pack = await game.packs.createCompendium({
         name: name,
         label: name,
-        entity: type,
+        type: type, // 'type' instead of 'entity' in v12+
         package: 'world'
       });
       
@@ -860,7 +880,8 @@ class PDFExtractorApp extends Application {
    */
   async _importToCompendium(pack, entity) {
     try {
-      return await pack.importEntity(entity);
+      // Updated for Foundry VTT v12+
+      return await pack.importDocument(entity);
     } catch (error) {
       console.error(`Error importing entity to compendium: ${error}`);
       return null;
