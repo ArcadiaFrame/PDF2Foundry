@@ -4,10 +4,10 @@
  */
 
 // Import our extractor classes
-import { PDFExtractor, MonsterExtractor, SpellExtractor } from './pdf-extractor-core.js';
+import { PDFExtractor, MonsterExtractor, SpellExtractor, ItemExtractor } from './pdf-extractor-core.js';
 import { AdventureExtractor, GlossaryExtractor } from './adventure-extractor.js';
 import { RaceExtractor, TraitExtractor, FeatExtractor, RollTableExtractor } from './content-extractors.js';
-import { loadPDFLibrary, parsePageRange, generateUUID, createCompendiumPack, importToCompendium } from './pdf-utils.js';
+import { loadPDFLibrary, parsePageRange, generateUUID } from './pdf-utils.js';
 
 // Register the module with Foundry VTT
 Hooks.once('init', async function() {
@@ -292,36 +292,46 @@ class PDFExtractorApp extends Application {
   async _onSubmit(event) {
     event.preventDefault();
     
-    // Determine PDF source
-    const source = this.html.find('input[name="pdf_source"]:checked').val();
-    
-    if (source === 'upload' && !this.file) {
-      ui.notifications.error('Please select a PDF file to upload.');
-      return;
-    } else if (source === 'server' && !this.serverFilePath) {
-      ui.notifications.error('Please select a PDF file from the server.');
-      return;
-    }
-    
-    // Get selected content types
-    const contentTypes = this.html.find('input[name="content_types[]"]:checked')
-      .map((i, el) => el.value)
-      .get();
-    
-    if (contentTypes.length === 0) {
-      ui.notifications.error('Please select at least one content type to extract.');
-      return;
-    }
-    
-    // Get page range
-    const pageRangeStr = this.html.find('#page-range').val();
-    const pageRange = parsePageRange(pageRangeStr);
-    
-    // Display processing message
-    this.html.find('.processing-message').removeClass('hidden');
-    this.html.find('.success-message').addClass('hidden');
-    
     try {
+      // Show processing message
+      this.html.find('.processing-message').removeClass('hidden');
+      this.html.find('button[type="submit"]').prop('disabled', true);
+      
+      // Determine PDF source
+      const source = this.html.find('input[name="pdf_source"]:checked').val();
+      
+      if (source === 'upload' && !this.file) {
+        ui.notifications.error('Please select a PDF file to upload.');
+        this.html.find('.processing-message').addClass('hidden');
+        this.html.find('button[type="submit"]').prop('disabled', false);
+        return;
+      } else if (source === 'server' && !this.serverFilePath) {
+        ui.notifications.error('Please select a PDF file from the server.');
+        this.html.find('.processing-message').addClass('hidden');
+        this.html.find('button[type="submit"]').prop('disabled', false);
+        return;
+      }
+    
+      // Get selected content types
+      const contentTypes = this.html.find('input[name="content_types[]"]:checked')
+        .map((i, el) => el.value)
+        .get();
+      
+      if (contentTypes.length === 0) {
+        ui.notifications.error('Please select at least one content type to extract.');
+        this.html.find('.processing-message').addClass('hidden');
+        this.html.find('button[type="submit"]').prop('disabled', false);
+        return;
+      }
+      
+      // Get page range
+      const pageRangeStr = this.html.find('#page-range').val();
+      const pageRange = parsePageRange(pageRangeStr);
+      
+      // Display processing message
+      this.html.find('.processing-message').removeClass('hidden');
+      this.html.find('.success-message').addClass('hidden');
+      
       // If using server file, fetch it first
       if (source === 'server') {
         await this._fetchServerFile(this.serverFilePath);
@@ -341,6 +351,7 @@ class PDFExtractorApp extends Application {
       console.error('Error processing PDF:', error);
       ui.notifications.error(`Error processing PDF: ${error.message}`);
       this.html.find('.processing-message').addClass('hidden');
+      this.html.find('button[type="submit"]').prop('disabled', false);
     }
   }
   
@@ -351,15 +362,19 @@ class PDFExtractorApp extends Application {
    */
   async _fetchServerFile(filePath) {
     try {
+      console.log(`PDF Extractor | Fetching server file: ${filePath}`);
+      
       // Request the file from the server
       const response = await fetch(`/modules/pdf-extractor/api/fetch?path=${encodeURIComponent(filePath)}`);
       
       if (!response.ok) {
+        ui.notifications.error(`Failed to fetch file: ${response.statusText}`);
         throw new Error(`Failed to fetch file: ${response.statusText}`);
       }
       
       // Get the file as a blob
       const blob = await response.blob();
+      console.log(`PDF Extractor | File fetched successfully: ${blob.size} bytes`);
       
       // Create a File object from the blob
       const filename = filePath.split('/').pop();
@@ -367,7 +382,8 @@ class PDFExtractorApp extends Application {
       
       return this.file;
     } catch (error) {
-      console.error('Error fetching server file:', error);
+      console.error('PDF Extractor | Error fetching server file:', error);
+      ui.notifications.error(`Error fetching file: ${error.message}`);
       throw error;
     }
   }
@@ -408,85 +424,126 @@ class PDFExtractorApp extends Application {
    * @private
    */
   async _processPDF(contentTypes, pageRange) {
-    const extractionPromises = [];
-    
-    // Extract monsters
-    if (contentTypes.includes('monsters')) {
-      extractionPromises.push(
-        this._extractMonsters(pageRange).then(result => {
-          this.results.monsters = result;
-        })
-      );
+    try {
+      console.log('PDF Extractor | Starting PDF processing');
+      const extractionPromises = [];
+      
+      // Initialize results object
+      this.results = {};
+      
+      // Extract monsters
+      if (contentTypes.includes('monsters')) {
+        extractionPromises.push(
+          this._extractMonsters(pageRange).then(result => {
+            this.results.monsters = result;
+          }).catch(error => {
+            console.error('PDF Extractor | Error extracting monsters:', error);
+            ui.notifications.error(`Error extracting monsters: ${error.message}`);
+            this.results.monsters = { error: error.message };
+          })
+        );
+      }
+      
+      // Extract spells
+      if (contentTypes.includes('spells')) {
+        extractionPromises.push(
+          this._extractSpells(pageRange).then(result => {
+            this.results.spells = result;
+          }).catch(error => {
+            console.error('PDF Extractor | Error extracting spells:', error);
+            ui.notifications.error(`Error extracting spells: ${error.message}`);
+            this.results.spells = { error: error.message };
+          })
+        );
+      }
+      
+      // Extract adventures
+      if (contentTypes.includes('adventures')) {
+        extractionPromises.push(
+          this._extractAdventures(pageRange).then(result => {
+            this.results.adventures = result;
+          }).catch(error => {
+            console.error('PDF Extractor | Error extracting adventures:', error);
+            ui.notifications.error(`Error extracting adventures: ${error.message}`);
+            this.results.adventures = { error: error.message };
+          })
+        );
+      }
+      
+      // Extract glossary
+      if (contentTypes.includes('glossary')) {
+        extractionPromises.push(
+          this._extractGlossary(pageRange).then(result => {
+            this.results.glossary = result;
+          }).catch(error => {
+            console.error('PDF Extractor | Error extracting glossary:', error);
+            ui.notifications.error(`Error extracting glossary: ${error.message}`);
+            this.results.glossary = { error: error.message };
+          })
+        );
+      }
+      
+      // Extract races
+      if (contentTypes.includes('races')) {
+        extractionPromises.push(
+          this._extractRaces(pageRange).then(result => {
+            this.results.races = result;
+          }).catch(error => {
+            console.error('PDF Extractor | Error extracting races:', error);
+            ui.notifications.error(`Error extracting races: ${error.message}`);
+            this.results.races = { error: error.message };
+          })
+        );
+      }
+      
+      // Extract traits
+      if (contentTypes.includes('traits')) {
+        extractionPromises.push(
+          this._extractTraits(pageRange).then(result => {
+            this.results.traits = result;
+          }).catch(error => {
+            console.error('PDF Extractor | Error extracting traits:', error);
+            ui.notifications.error(`Error extracting traits: ${error.message}`);
+            this.results.traits = { error: error.message };
+          })
+        );
+      }
+      
+      // Extract feats
+      if (contentTypes.includes('feats')) {
+        extractionPromises.push(
+          this._extractFeats(pageRange).then(result => {
+            this.results.feats = result;
+          }).catch(error => {
+            console.error('PDF Extractor | Error extracting feats:', error);
+            ui.notifications.error(`Error extracting feats: ${error.message}`);
+            this.results.feats = { error: error.message };
+          })
+        );
+      }
+      
+      // Extract roll tables
+      if (contentTypes.includes('rolltables')) {
+        extractionPromises.push(
+          this._extractRollTables(pageRange).then(result => {
+            this.results.rolltables = result;
+          }).catch(error => {
+            console.error('PDF Extractor | Error extracting roll tables:', error);
+            ui.notifications.error(`Error extracting roll tables: ${error.message}`);
+            this.results.rolltables = { error: error.message };
+          })
+        );
+      }
+      
+      // Wait for all extractions to complete
+      await Promise.all(extractionPromises);
+      
+      // Create compendium packs and import entities
+      await this._createCompendiums();
+    } catch (error) {
+      console.error('PDF Extractor | Error in _processPDF:', error);
+      throw error;
     }
-    
-    // Extract spells
-    if (contentTypes.includes('spells')) {
-      extractionPromises.push(
-        this._extractSpells(pageRange).then(result => {
-          this.results.spells = result;
-        })
-      );
-    }
-    
-    // Extract adventures
-    if (contentTypes.includes('adventures')) {
-      extractionPromises.push(
-        this._extractAdventures(pageRange).then(result => {
-          this.results.adventures = result;
-        })
-      );
-    }
-    
-    // Extract glossary
-    if (contentTypes.includes('glossary')) {
-      extractionPromises.push(
-        this._extractGlossary(pageRange).then(result => {
-          this.results.glossary = result;
-        })
-      );
-    }
-    
-    // Extract races/species
-    if (contentTypes.includes('races')) {
-      extractionPromises.push(
-        this._extractRaces(pageRange).then(result => {
-          this.results.races = result;
-        })
-      );
-    }
-    
-    // Extract traits
-    if (contentTypes.includes('traits')) {
-      extractionPromises.push(
-        this._extractTraits(pageRange).then(result => {
-          this.results.traits = result;
-        })
-      );
-    }
-    
-    // Extract feats
-    if (contentTypes.includes('feats')) {
-      extractionPromises.push(
-        this._extractFeats(pageRange).then(result => {
-          this.results.feats = result;
-        })
-      );
-    }
-    
-    // Extract roll tables
-    if (contentTypes.includes('rolltables')) {
-      extractionPromises.push(
-        this._extractRollTables(pageRange).then(result => {
-          this.results.rolltables = result;
-        })
-      );
-    }
-    
-    // Wait for all extractions to complete
-    await Promise.all(extractionPromises);
-    
-    // Create compendium packs and import entities
-    await this._createCompendiums();
   }
   
   /**
