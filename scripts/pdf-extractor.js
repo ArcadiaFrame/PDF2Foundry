@@ -31,8 +31,48 @@ Hooks.once('init', async function() {
       traits: false,
       feats: false,
       rolltables: false
+    },
+    onChange: value => {
+      // Update the UI if the settings window is open
+      if (ui.settings && ui.settings.element.find('.pdf-extractor-settings').length) {
+        for (const [key, enabled] of Object.entries(value)) {
+          ui.settings.element.find(`#pdf-extractor-${key}`).prop('checked', enabled);
+        }
+      }
     }
   });
+  
+  // Register a custom settings menu
+  game.settings.registerMenu('pdf-extractor', 'pdfExtractorMenu', {
+    name: 'PDF Extractor Settings',
+    label: 'Open PDF Extractor',
+    hint: 'Configure and use the PDF Extractor for importing content',
+    icon: 'fas fa-file-pdf',
+    type: PDFExtractorApp,
+    restricted: true
+  });
+  
+  // Register a direct setting for the PDF path
+  game.settings.register('pdf-extractor', 'pdfPath', {
+    name: 'PDF File Path',
+    hint: 'The path to the PDF file to extract content from',
+    scope: 'world',
+    config: true,
+    type: String,
+    default: '',
+    filePicker: 'file'
+  });
+  
+  // Register a direct setting for the output directory
+  game.settings.register('pdf-extractor', 'outputDir', {
+    name: 'Output Directory',
+    hint: 'The directory to save extracted content to',
+    scope: 'world',
+    config: true,
+    type: String,
+    default: 'data/packs',
+    filePicker: 'folder'
+  });}]}}],"name":"finish
   
   // Load PDF.js library
   try {
@@ -61,6 +101,20 @@ Hooks.once('ready', async function() {
       ev.preventDefault();
       new PDFExtractorApp().render(true);
     });
+    
+    // Log that the module is ready
+    console.log('PDF Extractor | Module ready and sidebar button added');
+  }
+});
+
+// Register the module with Foundry's UI
+Hooks.on('renderSettings', (app, html, data) => {
+  if (game.user.isGM) {
+    // Make sure the module settings are properly displayed
+    const extractionOptions = game.settings.get('pdf-extractor', 'extractionOptions');
+    for (const [key, enabled] of Object.entries(extractionOptions)) {
+      html.find(`#pdf-extractor-${key}`).prop('checked', enabled);
+    }
   }
 });
 
