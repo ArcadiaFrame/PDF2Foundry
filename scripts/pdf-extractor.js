@@ -94,9 +94,9 @@ Hooks.once('ready', async function() {
     
     // Add the button to the sidebar
     // Add to settings tabs in right sidebar
-    const settingsTabs = $('#settings-tabs');
+    const settingsTabs = $('#settings nav#settings-tabs');
     settingsTabs.append(button);
-    button.addClass('settings-tab');
+    button.addClass('settings-tab flexrow');
     
     // Add click handler to open the PDF Extractor interface
     button.click(ev => {
