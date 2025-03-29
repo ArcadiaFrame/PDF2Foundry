@@ -33,9 +33,9 @@ class PDFExtractor {
       // Convert the file to an ArrayBuffer
       const arrayBuffer = await this.pdfFile.arrayBuffer();
       
-      // Set PDF.js worker path if needed
+      // Set PDF.js worker path to use CDN version
       if (!pdfjs.GlobalWorkerOptions.workerSrc) {
-        pdfjs.GlobalWorkerOptions.workerSrc = 'modules/pdf-extractor/lib/pdf.worker.js';
+        pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/build/pdf.worker.min.js';
       }
       
       // Load the PDF document

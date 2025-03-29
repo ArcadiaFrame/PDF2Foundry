@@ -6,7 +6,7 @@
  */
 
 /**
- * Load the PDF.js library dynamically
+ * Load the PDF.js library dynamically from CDN
  * @returns {Promise<void>} - Resolves when the library is loaded
  */
 export async function loadPDFLibrary() {
@@ -15,18 +15,22 @@ export async function loadPDFLibrary() {
     return;
   }
   
-  // Set the worker source path
-  const moduleRoot = 'modules/pdf-extractor';
-  
-  // Load the PDF.js library
-  await Promise.all([
-    loadScript(`${moduleRoot}/lib/pdf.min.js`),
-    loadScript(`${moduleRoot}/lib/pdf.worker.min.js`)
-  ]);
-  
-  // Configure PDF.js
-  window.pdfjsLib.GlobalWorkerOptions.workerSrc = `${moduleRoot}/lib/pdf.worker.min.js`;
-}
+  return new Promise((resolve, reject) => {
+    try {
+      // Load the PDF.js library from CDN
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/build/pdf.min.js';
+      script.onload = () => {
+        // Configure PDF.js
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/build/pdf.worker.min.js';
+        resolve();
+      };
+      script.onerror = reject;
+      document.head.appendChild(script);
+    } catch (error) {
+      reject(error);
+    }
+  });
 
 /**
  * Load a script dynamically

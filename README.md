@@ -35,8 +35,9 @@ This module provides a tool for extracting content from RPG PDFs and converting 
 This module requires:
 - Foundry VTT v12.0 or higher
 - DnD 5e System v4.0 or higher
-- Python 3.7 or higher (installed on the server)
-- Required Python packages (automatically installed during setup)
+
+Note: The module now uses CDN-hosted PDF.js library, so no additional installation steps are required.
+
 
 ## Usage
 
