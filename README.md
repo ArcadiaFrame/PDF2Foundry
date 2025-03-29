@@ -20,12 +20,12 @@ This module provides a tool for extracting content from RPG PDFs and converting 
 
 1. In the Foundry VTT setup screen, go to the "Add-on Modules" tab
 2. Click "Install Module"
-3. In the "Manifest URL" field, paste: `https://github.com/ArcadiaFrame/PDF2Foundry/releases/latest/download/module.json`
+3. In the "Manifest URL" field, paste: `https://raw.githubusercontent.com/ArcadiaFrame/PDF2Foundry/main/module.json`
 4. Click "Install"
 
 ### Method 2: Manual Installation
 
-1. Download the latest release from the [Releases page](https://github.com/ArcadiaFrame/PDF2Foundry/releases)
+1. Download the latest release from the [Releases page](https://github.com/ArcadiaFrame/PDF2Foundry/archive/refs/heads/main.zip)
 2. Extract the zip file
 3. Place the extracted folder in your Foundry VTT's `Data/modules/` directory
 4. Restart Foundry VTT if it's already running

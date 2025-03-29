@@ -31,13 +31,14 @@ export async function loadPDFLibrary() {
       reject(error);
     }
   });
+}
 
 /**
  * Load a script dynamically
  * @param {string} src - The script source URL
  * @returns {Promise<void>} - Resolves when the script is loaded
  */
-function loadScript(src) {
+export function loadScript(src) {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
     script.src = src;
