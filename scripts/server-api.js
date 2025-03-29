@@ -103,8 +103,8 @@ async function handleBrowseRequest(data) {
       return { success: false, error: 'Invalid path. Please select a PDF file from the data directory.' };
     }
     
-    // Check if path points to a PDF file
-    if (!path.toLowerCase().endsWith('.pdf')) {
+    // Check if path points to a file (only validate extension for files)
+    if (path.includes('.') && !path.toLowerCase().endsWith('.pdf')) {
       return { success: false, error: 'Selected file is not a PDF. Please choose a PDF file.' };
     }
     
@@ -147,8 +147,8 @@ async function handleFetchRequest(data) {
       return { success: false, error: 'Invalid path. Please select a PDF file from the data directory.' };
     }
     
-    // Check if path points to a PDF file
-    if (!path.toLowerCase().endsWith('.pdf')) {
+    // Check if path points to a file (only validate extension for files)
+    if (path.includes('.') && !path.toLowerCase().endsWith('.pdf')) {
       return { success: false, error: 'Selected file is not a PDF. Please choose a PDF file.' };
     }
     
@@ -189,8 +189,8 @@ function isValidPath(path) {
   }
   
   // Ensure the path is within the data directory
-  // In Foundry v12, paths might not have a leading slash
-  if (!path.startsWith('data') && !path.startsWith('/data')) {
+  const normalizedPath = path.replace(/^\//, '');
+  if (!normalizedPath.startsWith('data/') && normalizedPath !== 'data') {
     console.warn(`PDF Extractor | Invalid path detected (not in data directory): ${path}`);
     return false;
   }

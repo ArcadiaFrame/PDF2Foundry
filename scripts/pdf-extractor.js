@@ -87,14 +87,16 @@ Hooks.once('init', async function() {
 Hooks.once('ready', async function() {
   if (game.user.isGM) {
     // Create the button in the sidebar
-    const button = $(`<div class="pdf-extractor-button flexrow">
+    const button = $(`<div class="pdf-extractor-button settings-tab flexrow">
                         <i class="fas fa-file-pdf"></i>
                         <span>PDF Extractor</span>
                       </div>`);
     
     // Add the button to the sidebar
-    const sidebar = $('#sidebar');
-    sidebar.append(button);
+    // Add to settings tabs in right sidebar
+    const settingsTabs = $('#settings-tabs');
+    settingsTabs.append(button);
+    button.addClass('settings-tab');
     
     // Add click handler to open the PDF Extractor interface
     button.click(ev => {
