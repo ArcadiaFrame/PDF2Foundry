@@ -96,9 +96,11 @@ export class FoundryGui {
                 console.error(error);
               }
             } else {
-              // Use the PDFtoFoundry processor for Paizo content
+              // Use the completely system-agnostic PDFtoFoundry processor for ANY type of PDF
               try {
-                (await import('../pdftofoundry/importer.mjs')).generateData(form.data.files[0]);
+                // Use our wrapper that removes ALL system dependencies and restrictions
+                ui.notifications.info("Processing PDF with unrestricted mode. This PDF will be processed regardless of system or file type...");
+                (await import('./paizo-importer-wrapper.mjs')).generateData(form.data.files[0]);
               } catch (error) {
                 ui.notifications.error(`Error processing PDF: ${error.message}`);
                 console.error(error);
@@ -115,7 +117,7 @@ export class FoundryGui {
       render: html => {
         // Add the generic extractor tab
         const navElement = html.find('nav');
-        navElement.append('<a data-tab="generic"><i class="fas fa-file-pdf"></i> Generic Extractor</a>');
+        navElement.append('<a data-tab="generic"><i class="fas fa-file-pdf"></i> System-Agnostic Extractor</a>');
         
         // Add the generic extractor content
         const contentSection = html.find('section.pdftofoundry-content');
