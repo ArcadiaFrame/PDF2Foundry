@@ -28,11 +28,6 @@
       "name": "pdfjs",
       "type": "library",
       "manifest": "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/package.json"
-    },
-    {
-      "name": "pdftofoundry",
-      "type": "module",
-      "manifest": "https://raw.githubusercontent.com/ArcadiaFrame/PDF2Foundry/main/pdftofoundry/module.json"
     }
   ],
   "styles": [
