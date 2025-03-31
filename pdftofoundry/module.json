@@ -27,16 +27,7 @@
         "maximum": "12"
     },
     "relationships": {
-        "systems": [
-            {
-                "id": "pf2e",
-                "type": "system",
-                "compatibility": {
-                    "minimum": "6.2.1",
-                    "verified": "6.2.1"
-                }
-            }
-        ]
+        "systems": []
     },
     "styles": ["pdftofoundry.css"],
     "packs": [],
