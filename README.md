@@ -1,6 +1,6 @@
-# PDF Extractor for Foundry VTT (System Agnostic)
+# System-Agnostic PDF Extractor Plus for Foundry VTT
 
-This module provides a tool for extracting content from RPG PDFs and converting it to Foundry VTT format. While it works exceptionally well with DnD 5e compatible books, it is designed to be system agnostic and can be used with various RPG systems. It allows you to easily import monsters, spells, items, backgrounds, adventures, and glossaries from official or third-party PDFs directly into your Foundry VTT game.
+This module provides a comprehensive solution for extracting content from various RPG system PDFs and importing it into Foundry VTT. It combines the generic extraction capabilities of PDF Extractor with the specialized importers from PDFtoFoundry, creating a unified tool that works with multiple game systems.
 
 ## Features
 
@@ -33,7 +33,7 @@ This module provides a tool for extracting content from RPG PDFs and converting 
 ## Requirements
 
 This module requires:
-- Foundry VTT v12.0 or higher
+- Foundry VTT v12.331 or higher
 - DnD 5e System v4.0 or higher
 
 Note: The module now uses CDN-hosted PDF.js library, so no additional installation steps are required.

@@ -1,0 +1,30 @@
+{
+    "walls": [
+        {"_id":"9zli4Vv1ihzVYaG4","flags":{},"c":[500,500,400,600],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"yNo41NvOW6ngKAmO","flags":{},"c":[400,600,400,800],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"uPfrV9MIWcjiIVsy","flags":{},"c":[400,800,500,900],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"yqvXCyP6pVmdRHDw","flags":{},"c":[500,1112,500,1300],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"BKLfB3m3GIooF1GH","flags":{},"c":[500,1425,500,1500],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"atSgzig48sgl6r5k","flags":{},"c":[500,1500,600,1500],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"5bHTS3kpWGSbFVei","flags":{},"c":[600,1500,600,1712],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"uMB4aIZ9q6kB75Jx","flags":{},"c":[600,1812,600,1912],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"hzTbK4Dt1zl3pIH3","flags":{},"c":[600,1912,1000,1912],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"lfV9FXE0iWd6CMVJ","flags":{},"c":[887,1500,887,1162],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"vadfF2ksqIw40x48","flags":{},"c":[1087,1500,1212,1500],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"bnYyrwg6cJZZEdEY","flags":{},"c":[1212,1500,1212,1412],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"hEEQnWYvHCAxgwfN","flags":{},"c":[1212,1287,1212,1062],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"NAKvjlM68tbNMCFD","flags":{},"c":[1212,937,1212,600],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"b7vYsW5M48JysPSK","flags":{},"c":[1212,600,1000,600],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"WICyF4GDb8eMrLtD","flags":{},"c":[1212,600,1000,600],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"XO8nUJhdWILUYh4c","flags":{},"c":[500,500,700,500],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"u2YPfVZBr0OPaDXA","flags":{},"c":[700,500,787,600],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"XY3hqyxfEqhlwXBM","flags":{},"c":[787,600,887,600],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"qyPnCmsx8W83RMDn","flags":{},"c":[887,600,887,800],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}}
+    ],
+    "lights": [
+    
+    ],
+    "drawings": [
+    
+    ]
+}

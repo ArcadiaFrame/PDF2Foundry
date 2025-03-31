@@ -1,16 +1,13 @@
 {
-  "id": "pdf-extractor",
-  "title": "PDF Extractor for DnD 5e",
-  "description": "A module for extracting content from DnD 5e PDFs and converting it to Foundry VTT format.",
+  "id": "pdf-extractor-plus",
+  "title": "PDF Extractor Plus",
+  "description": "System-agnostic module for extracting content from RPG PDFs and converting to Foundry VTT journals/actors/items.",
   "version": "1.0.0",
   "compatibility": {
     "minimum": "12.0",
-    "verified": "12.0",
-    "systems": [{
-      "id": "dnd5e",
-      "minimum": "4.0",
-      "verified": "4.0"
-    }]
+    "verified": "12.331",
+    "maximum": "12",
+    "systems": []
   },
   "authors": [
     {
@@ -20,13 +17,22 @@
   ],
   "esmodules": [
     "scripts/pdf-extractor.js",
-    "scripts/server-api.js"
+    "scripts/pdf-extractor-ui.js",
+    "scripts/server-api.js",
+    "pdftofoundry/pdftofoundry.mjs",
+    "pdftofoundry/vendor.mjs"
   ],
+  "socket": true,
   "dependencies": [
     {
       "name": "pdfjs",
       "type": "library",
       "manifest": "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/package.json"
+    },
+    {
+      "name": "pdftofoundry",
+      "type": "module",
+      "manifest": "https://raw.githubusercontent.com/ArcadiaFrame/PDF2Foundry/main/pdftofoundry/module.json"
     }
   ],
   "styles": [
@@ -40,6 +46,6 @@
   "readme": "README.md",
   "bugs": "https://github.com/ArcadiaFrame/PDF2Foundry/issues",
   "changelog": "https://github.com/ArcadiaFrame/PDF2Foundry/releases",
-  "socket": false,
+  "socket": true,
   "library": false
 }

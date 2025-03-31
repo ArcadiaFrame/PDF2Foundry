@@ -1,0 +1,11 @@
+{
+    "walls": [
+    
+    ],
+    "lights": [
+    
+    ],
+    "drawings": [
+        {"_id":"PhPSsmbBPJ6AEvOM","author":"gPZxFNH9wpfCOmnY","shape":{"type":"r","width":300,"height":200,"radius":null,"points":[]},"x":2213,"y":1700,"rotation":0,"bezierFactor":0,"fillType":0,"fillColor":"#cc28a1","fillAlpha":0.5,"strokeWidth":8,"strokeColor":"#ffffff","strokeAlpha":1,"texture":null,"text":"PCs start here","fontFamily":"Signika","fontSize":48,"textColor":"#ffffff","textAlpha":1,"hidden":true,"locked":false,"flags":{},"interface":true,"elevation":0,"sort":0}
+    ]
+}

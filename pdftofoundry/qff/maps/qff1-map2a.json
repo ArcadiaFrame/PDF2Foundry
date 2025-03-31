@@ -1,0 +1,13 @@
+{
+    "walls": [
+    
+    ],
+    "lights": [
+    
+    ],
+    "drawings": [
+        {"_id":"FfkY4Zb6EMXlSjUU","author":"gPZxFNH9wpfCOmnY","x":1200,"y":1400,"rotation":0,"bezierFactor":0,"fillType":0,"fillColor":"#ffffff","fillAlpha":0,"strokeWidth":0,"strokeColor":"#ffffff","strokeAlpha":1,"texture":null,"text":"S","fontFamily":"Signika","fontSize":48,"textColor":"#ffffff","textAlpha":1,"hidden":true,"locked":false,"flags":{},"shape":{"type":"r","width":100,"height":100,"points":[],"radius":null},"interface":true,"elevation":0,"sort":0},
+        {"_id":"2YQOnZ8jK55QdjL2","author":"gPZxFNH9wpfCOmnY","x":1700,"y":1500,"rotation":0,"bezierFactor":0,"fillType":0,"fillColor":"#ffffff","fillAlpha":0,"strokeWidth":0,"strokeColor":"#ffffff","strokeAlpha":1,"texture":null,"text":"S","fontFamily":"Signika","fontSize":48,"textColor":"#ffffff","textAlpha":1,"hidden":true,"locked":false,"flags":{},"shape":{"type":"r","width":100,"height":100,"points":[],"radius":null},"interface":true,"elevation":0,"sort":0},
+        {"_id":"8AH290UfXpEZ3FgY","author":"gPZxFNH9wpfCOmnY","x":1800,"y":1300,"rotation":0,"bezierFactor":0,"fillType":0,"fillColor":"#ffffff","fillAlpha":0,"strokeWidth":0,"strokeColor":"#ffffff","strokeAlpha":1,"texture":null,"text":"S","fontFamily":"Signika","fontSize":48,"textColor":"#ffffff","textAlpha":1,"hidden":true,"locked":false,"flags":{},"shape":{"type":"r","width":100,"height":100,"points":[],"radius":null},"interface":true,"elevation":0,"sort":0}
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "walls": [
+        {"_id":"xZwZuhXKG5EA2eTj","flags":{},"c":[700,600,700,3000],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"JTq1Knj1izttwKAk","flags":{},"c":[700,3000,3200,3000],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"dAWSRHZkb2opPomw","flags":{},"c":[3200,3000,3200,600],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"SDd40DCL13PrRRDA","flags":{},"c":[3200,600,700,600],"move":20,"door":0,"ds":0,"sight":20,"light":20,"sound":20,"dir":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}}
+    ],
+    "lights": [
+    
+    ],
+    "drawings": [
+        {"_id":"Imu6lLIetG9xq8FS","flags":{},"author":"gPZxFNH9wpfCOmnY","x":800,"y":1500,"rotation":0,"hidden":true,"locked":false,"bezierFactor":0,"fillType":0,"fillColor":"#cc28a1","fillAlpha":0.5,"strokeWidth":8,"strokeColor":"#cc28a1","strokeAlpha":1,"fontFamily":"Signika","fontSize":48,"textColor":"#ffffff","textAlpha":1,"texture":null,"text":"Lion Cage","shape":{"type":"r","width":300,"height":200,"points":[],"radius":null},"interface":true,"elevation":0,"sort":0},
+        {"_id":"ez3M3wr3CHp60FkP","flags":{},"author":"gPZxFNH9wpfCOmnY","x":800,"y":1900,"rotation":0,"hidden":true,"locked":false,"bezierFactor":0,"fillType":0,"fillColor":"#cc28a1","fillAlpha":0.5,"strokeWidth":8,"strokeColor":"#cc28a1","strokeAlpha":1,"texture":null,"text":"Lion Cage","fontFamily":"Signika","fontSize":48,"textColor":"#ffffff","textAlpha":1,"shape":{"type":"r","width":300,"height":200,"points":[],"radius":null},"interface":true,"elevation":0,"sort":0},
+        {"_id":"mICumLXEYcw1bLzu","flags":{},"author":"gPZxFNH9wpfCOmnY","x":800,"y":2300,"rotation":0,"hidden":true,"locked":false,"bezierFactor":0,"fillType":0,"fillColor":"#cc28a1","fillAlpha":0.5,"strokeWidth":8,"strokeColor":"#cc28a1","strokeAlpha":1,"texture":null,"text":"Lion Cage","fontFamily":"Signika","fontSize":48,"textColor":"#ffffff","textAlpha":1,"shape":{"type":"r","width":300,"height":200,"points":[],"radius":null},"interface":true,"elevation":0,"sort":0},
+        {"_id":"OTKDRpCxM9y8rLDZ","flags":{},"author":"gPZxFNH9wpfCOmnY","x":2900,"y":1700,"rotation":0,"hidden":true,"locked":false,"bezierFactor":0,"fillType":0,"fillColor":"#ffffff","fillAlpha":0,"strokeWidth":0,"strokeColor":"#ffffff","strokeAlpha":1,"text":"A","fontFamily":"Signika","fontSize":48,"textColor":"#ffffff","textAlpha":1,"shape":{"type":"r","width":132,"height":106,"points":[],"radius":null},"interface":true,"elevation":0,"sort":0,"texture":null},
+        {"_id":"lKLoehCiiO0hTqih","flags":{},"author":"gPZxFNH9wpfCOmnY","x":1600,"y":2150,"rotation":0,"hidden":true,"locked":false,"bezierFactor":0,"fillType":0,"fillColor":"#ffffff","fillAlpha":0,"strokeWidth":0,"strokeColor":"#ffffff","strokeAlpha":1,"text":"PCs","fontFamily":"Signika","fontSize":48,"textColor":"#ffffff","textAlpha":1,"shape":{"type":"r","width":180,"height":106,"points":[],"radius":null},"interface":true,"elevation":0,"sort":0,"texture":null}
+    ]
+}

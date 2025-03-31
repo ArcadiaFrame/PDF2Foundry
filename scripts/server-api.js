@@ -16,24 +16,24 @@ Hooks.once('ready', () => {
  */
 function registerAPIRoutes() {
   // Route for browsing server directories
-  game.modules.get('pdf-extractor').api = {
+  game.modules.get('pdf-extractor-plus').api = {
     browse: handleBrowseRequest,
     fetch: handleFetchRequest
   };
   
   // Register the API endpoints
   const socket = game.socket;
-  socket.on('module.pdf-extractor', handleSocketRequest);
+  socket.on('module.pdf-extractor-plus', handleSocketRequest);
   
   // Register Express API routes for direct HTTP access
-  // In Foundry v12, we need to use game.modules.get('pdf-extractor').api.router
+  // In Foundry v12, we need to use game.modules.get('pdf-extractor-plus').api.router
   // or fall back to game.server?.router if available
-  const router = game.modules.get('pdf-extractor').api.router || game.server?.router;
+  const router = game.modules.get('pdf-extractor-plus').api.router || game.server?.router;
   
   if (router) {
     console.log('PDF Extractor | Registering API routes');
     
-    router.get('/modules/pdf-extractor/api/browse', (req, res) => {
+    router.get('/modules/pdf-extractor-plus/api/browse', (req, res) => {
       const path = req.query.path;
       handleBrowseRequest({ path }).then(result => {
         res.json(result);
@@ -43,7 +43,7 @@ function registerAPIRoutes() {
       });
     });
     
-    router.get('/modules/pdf-extractor/api/fetch', (req, res) => {
+    router.get('/modules/pdf-extractor-plus/api/fetch', (req, res) => {
       const path = req.query.path;
       handleFetchRequest({ path }).then(result => {
         if (result.success) {
@@ -63,32 +63,33 @@ function registerAPIRoutes() {
 }
 
 /**
- * Handle socket requests
+ * Handle socket request
  * @param {Object} data - The request data
- * @param {string} userId - The user ID
  */
-async function handleSocketRequest(data, userId) {
-  // Verify that the user is a GM
-  const user = game.users.get(userId);
-  if (!user || !user.isGM) {
-    return { success: false, error: 'Unauthorized' };
-  }
-  
-  // Handle the request based on the action
-  switch (data.action) {
-    case 'browse':
-      return await handleBrowseRequest(data);
-    case 'fetch':
-      return await handleFetchRequest(data);
-    default:
-      return { success: false, error: 'Invalid action' };
+async function handleSocketRequest(data) {
+  try {
+    const { action, data: requestData } = data;
+    
+    switch (action) {
+      case 'browse':
+        return await handleBrowseRequest(requestData);
+      case 'fetch':
+        return await handleFetchRequest(requestData);
+      case 'extractPDF':
+        return await handleExtractPDFRequest(requestData);
+      default:
+        throw new Error(`Unknown action: ${action}`);
+    }
+  } catch (error) {
+    console.error('PDF Extractor | Socket API error:', error);
+    return { success: false, error: error.message };
   }
 }
 
 /**
  * Handle browse request
  * @param {Object} data - The request data
- * @returns {Object} - The response data
+ * @returns {Promise<Object>} - The response data
  */
 async function handleBrowseRequest(data) {
   try {
@@ -132,7 +133,7 @@ async function handleBrowseRequest(data) {
 /**
  * Handle fetch request
  * @param {Object} data - The request data
- * @returns {Object} - The response data
+ * @returns {Promise<Object>} - The response data
  */
 async function handleFetchRequest(data) {
   try {
@@ -174,6 +175,109 @@ async function handleFetchRequest(data) {
     console.error('PDF Extractor | Error fetching file:', error);
     return { success: false, error: error.message || 'Unknown error fetching file' };
   }
+}
+
+/**
+ * Handle extract PDF request
+ * @param {Object} data - The request data
+ * @returns {Promise<Object>} - The response data
+ */
+async function handleExtractPDFRequest(data) {
+  try {
+    const { file, filename, contentType, startPage, endPage, outputFormat } = data;
+    
+    // Save the file to a temporary location
+    const tempPath = await saveTempFile(file, filename);
+    
+    // Process the PDF using the Python backend
+    const result = await processPDFWithPython(tempPath, contentType, startPage, endPage, outputFormat);
+    
+    // Clean up the temporary file
+    await deleteTempFile(tempPath);
+    
+    // Send the results back to the client
+    game.socket.emit('module.pdf-extractor-plus', {
+      action: 'extractionResults',
+      data: {
+        success: true,
+        message: `Successfully processed ${filename}`,
+        result
+      }
+    });
+    
+    return {
+      success: true,
+      message: `Processing ${filename} started successfully`
+    };
+  } catch (error) {
+    console.error('PDF Extractor | Extract PDF API error:', error);
+    
+    // Send the error back to the client
+    game.socket.emit('module.pdf-extractor-plus', {
+      action: 'extractionResults',
+      data: {
+        success: false,
+        error: error.message
+      }
+    });
+    
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * Save a file to a temporary location
+ * @param {ArrayBuffer} data - The file data
+ * @param {string} filename - The file name
+ * @returns {Promise<string>} - The path to the temporary file
+ */
+async function saveTempFile(data, filename) {
+  // In a real implementation, this would save the file to the server's temp directory
+  // For now, we'll just simulate it
+  console.log(`PDF Extractor | Saving temporary file: ${filename}`);
+  
+  // In a real implementation, we would use the Foundry API to save the file
+  // For now, we'll just return a simulated path
+  return `temp/${filename}`;
+}
+
+/**
+ * Delete a temporary file
+ * @param {string} path - The path to the temporary file
+ * @returns {Promise<void>}
+ */
+async function deleteTempFile(path) {
+  // In a real implementation, this would delete the file from the server's temp directory
+  // For now, we'll just simulate it
+  console.log(`PDF Extractor | Deleting temporary file: ${path}`);
+}
+
+/**
+ * Process a PDF using the Python backend
+ * @param {string} path - The path to the PDF file
+ * @param {string} contentType - The type of content to extract
+ * @param {number|null} startPage - The starting page (optional)
+ * @param {number|null} endPage - The ending page (optional)
+ * @param {string} outputFormat - The output format (compendium or world)
+ * @returns {Promise<Object>} - The extraction results
+ */
+async function processPDFWithPython(path, contentType, startPage, endPage, outputFormat) {
+  // In a real implementation, this would call the Python backend
+  // For now, we'll just simulate it
+  console.log(`PDF Extractor | Processing PDF: ${path}`);
+  console.log(`Content Type: ${contentType}, Pages: ${startPage || 'start'}-${endPage || 'end'}, Format: ${outputFormat}`);
+  
+  // Simulate processing delay
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  
+  // Return simulated results
+  return {
+    extractedItems: [
+      { type: 'journal', name: 'Chapter 1', pages: 10 },
+      { type: 'actor', name: 'Goblin', cr: 1 },
+      { type: 'item', name: 'Magic Sword', type: 'weapon' }
+    ]
+  };
 }
 
 /**

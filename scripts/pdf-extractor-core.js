@@ -1,6 +1,6 @@
 /**
  * PDF Extractor Core for Foundry VTT
- * This module provides the core functionality for extracting content from DnD 5e PDFs
+ * This module provides the core functionality for extracting content from various RPG system PDFs
  * and converting it to Foundry VTT format using JavaScript and PDF.js
  */
 

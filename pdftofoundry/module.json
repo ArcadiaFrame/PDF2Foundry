@@ -1,0 +1,50 @@
+{
+    "id": "pdftofoundry",
+    "title": "PDF to Foundry Importer",
+    "description": "",
+    "version": "5.0.0",
+    "authors": [
+        {
+            "name": "fryguy",
+            "discord": "fryguy#3851"
+        }
+    ],
+    "scripts": [],
+    "esmodules": [
+        "pdftofoundry.mjs",
+        "vendor.mjs"
+    ],
+    "flags": {
+        "compendiumArtMappings": {
+            "pf2e": {
+                "mapping": "pdftofoundry-image-mapping.json"
+            }
+        }
+    },
+    "compatibility": {
+        "minimum": "12",
+        "verified": "12.331",
+        "maximum": "12"
+    },
+    "relationships": {
+        "systems": [
+            {
+                "id": "pf2e",
+                "type": "system",
+                "compatibility": {
+                    "minimum": "6.2.1",
+                    "verified": "6.2.1"
+                }
+            }
+        ]
+    },
+    "styles": ["pdftofoundry.css"],
+    "packs": [],
+    "languages": [],
+    "socket": true,
+    "url": "https://github.com/fryguy1013/pdftofoundry/",
+    "bugs": "https://github.com/fryguy1013/pdftofoundry/issues",
+    "changelog": "https://github.com/fryguy1013/pdftofoundry/blob/release/CHANGELOG.md",
+    "manifest": "https://github.com/fryguy1013/pdftofoundry/releases/latest/download/module.json",
+    "download": "https://github.com/fryguy1013/pdftofoundry/releases/latest/download/pdftofoundry.zip"
+}

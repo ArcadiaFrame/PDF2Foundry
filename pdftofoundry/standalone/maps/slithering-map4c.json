@@ -1,0 +1,14 @@
+{
+    "walls": [
+        {"_id":"s1gXPh5XCBYXMNuy","c":[425,775,425,3687],"move":20,"sound":20,"dir":0,"door":0,"ds":0,"flags":{},"sight":0,"light":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"PdsWKIWZ83C2npLU","c":[425,3687,1975,3687],"move":20,"sound":20,"dir":0,"door":0,"ds":0,"flags":{},"sight":0,"light":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"erWGUC42tWbnVJXn","c":[1975,3687,1975,775],"move":20,"sound":20,"dir":0,"door":0,"ds":0,"flags":{},"sight":0,"light":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}},
+        {"_id":"nzGNzY8zq3JdDqu6","c":[1975,775,425,775],"move":20,"sound":20,"dir":0,"door":0,"ds":0,"flags":{},"sight":0,"light":0,"threshold":{"light":null,"sight":null,"sound":null,"attenuation":false}}
+    ],
+    "lights": [
+    
+    ],
+    "drawings": [
+    
+    ]
+}

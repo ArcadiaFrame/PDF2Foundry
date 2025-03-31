@@ -37,49 +37,18 @@
     </div>
   </div>
   
+  <div class="form-group system-selector-container">
+    <label for="system-select">Game System:</label>
+    <select id="system-select" name="system">
+      <!-- System options will be populated by system-selector.js -->
+    </select>
+    <p class="hint">Select the RPG system this PDF is from to improve extraction accuracy</p>
+  </div>
+  
   <div class="form-group">
     <label>Content to Extract:</label>
     <div class="checkbox-group">
-      <div class="checkbox-item">
-        <input type="checkbox" id="monsters" name="content_types[]" value="monsters" data-checked="extractionOptions.monsters">
-        <label for="monsters">Monsters/NPCs</label>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" id="spells" name="content_types[]" value="spells" data-checked="extractionOptions.spells">
-        <label for="spells">Spells</label>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" id="items" name="content_types[]" value="items" data-checked="extractionOptions.items">
-        <label for="items">Items</label>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" id="backgrounds" name="content_types[]" value="backgrounds" data-checked="extractionOptions.backgrounds">
-        <label for="backgrounds">Backgrounds</label>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" id="adventures" name="content_types[]" value="adventures" data-checked="extractionOptions.adventures">
-        <label for="adventures">Adventures</label>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" id="glossary" name="content_types[]" value="glossary" data-checked="extractionOptions.glossary">
-        <label for="glossary">Glossary/Index</label>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" id="races" name="content_types[]" value="races" data-checked="extractionOptions.races">
-        <label for="races">Species/Races</label>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" id="traits" name="content_types[]" value="traits" data-checked="extractionOptions.traits">
-        <label for="traits">Traits</label>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" id="feats" name="content_types[]" value="feats" data-checked="extractionOptions.feats">
-        <label for="feats">Feats</label>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" id="rolltables" name="content_types[]" value="rolltables" data-checked="extractionOptions.rolltables">
-        <label for="rolltables">Roll Tables</label>
-      </div>
+      <!-- Content type checkboxes will be dynamically populated based on selected system -->
     </div>
   </div>
   

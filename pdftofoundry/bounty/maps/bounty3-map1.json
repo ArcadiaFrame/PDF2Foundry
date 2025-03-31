@@ -1,0 +1,13 @@
+{
+    "walls": [
+    
+    ],
+    "lights": [
+    
+    ],
+    "drawings": [
+        {"_id":"Us1kyTEL88F2uVoJ","author":"gPZxFNH9wpfCOmnY","shape":{"type":"r","width":95,"height":73,"radius":null,"points":[]},"x":1800,"y":2513,"rotation":0,"bezierFactor":0,"fillType":0,"fillColor":"#ffffff","fillAlpha":0.1,"strokeWidth":0,"strokeColor":"#ffffff","strokeAlpha":1,"texture":null,"text":"A3","fontFamily":"Signika","fontSize":48,"textColor":"#ffffff","textAlpha":1,"hidden":true,"locked":false,"flags":{},"interface":true,"elevation":0,"sort":0},
+        {"_id":"HXe0lujh3cQDn84p","author":"gPZxFNH9wpfCOmnY","shape":{"type":"r","width":90,"height":65,"radius":null,"points":[]},"x":2500,"y":1713,"rotation":0,"bezierFactor":0,"fillType":0,"fillColor":"#ffffff","fillAlpha":0.1,"strokeWidth":0,"strokeColor":"#ffffff","strokeAlpha":1,"texture":null,"text":"A1","fontFamily":"Signika","fontSize":48,"textColor":"#ffffff","textAlpha":1,"hidden":true,"locked":false,"flags":{},"interface":true,"elevation":0,"sort":0},
+        {"author":"gPZxFNH9wpfCOmnY","shape":{"type":"r","width":95,"height":73,"radius":null,"points":[]},"x":1000,"y":1200,"rotation":0,"bezierFactor":0,"fillType":0,"fillColor":"#ffffff","fillAlpha":0.1,"strokeWidth":0,"strokeColor":"#ffffff","strokeAlpha":1,"texture":null,"text":"A2","fontFamily":"Signika","fontSize":48,"textColor":"#ffffff","textAlpha":1,"hidden":true,"locked":false,"flags":{},"_id":"s5L4PxgJQWAwgFsT","interface":true,"elevation":0,"sort":0}
+    ]
+}
